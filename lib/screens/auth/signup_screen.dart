@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:lautech_mobile/colors/colors.dart';
 import 'package:lautech_mobile/screens/auth/login_screen.dart';
+import 'package:lautech_mobile/screens/home/dashboard/dashboard.dart';
 import 'package:lautech_mobile/utils/button/auth_btn.dart';
 import 'package:lautech_mobile/utils/textfield/name_textfield.dart';
 import 'package:lautech_mobile/utils/texts/poppins_text.dart';
@@ -63,6 +64,7 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: colorCodes.white,
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
@@ -134,7 +136,18 @@ class _SignupScreenState extends State<SignupScreen> {
                     const SizedBox(
                       height: 30,
                     ),
-                    authButton('SIGN UP', () {}),
+                    authButton('SIGN UP', () {
+                      if (fullnameController.text.isNotEmpty &&
+                          confirmPasswordController.text.isNotEmpty &&
+                          matricController.text.isNotEmpty &&
+                          phonenumController.text.isNotEmpty &&
+                          emailController.text.isNotEmpty &&
+                          passwordController.text.isNotEmpty) {
+                        showDialog(
+                            context: context,
+                            builder: (context) => signupSuccessDialog());
+                      }
+                    }),
                     const SizedBox(
                       height: 13,
                     ),
@@ -169,6 +182,38 @@ class _SignupScreenState extends State<SignupScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget signupSuccessDialog() {
+    return AlertDialog(
+      titlePadding: const EdgeInsets.only(top: 16.0, left: 21.0, right: 21.0),
+      alignment: Alignment.center,
+      title: Image.asset(
+        'assets/imgs/like-img.png',
+        height: 216,
+        width: 215,
+      ),
+      contentPadding: const EdgeInsets.only(
+          top: 10.0, bottom: 16.0, left: 21.0, right: 21.0),
+      content: Text(
+        'Sign Up  Successfully ',
+        textAlign: TextAlign.center,
+        style: TextStyle(
+            fontFamily: 'Open Sans',
+            fontSize: 24,
+            fontWeight: FontWeight.w600,
+            color: HexColor("#091031")),
+      ),
+      actionsPadding:
+          const EdgeInsets.symmetric(vertical: 20.0, horizontal: 21),
+      actionsAlignment: MainAxisAlignment.center,
+      actions: [
+        authButton('Continue', () {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => DashBoard()));
+        })
+      ],
     );
   }
 }

@@ -1,18 +1,27 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 // bool visibilty = false;
 
-Widget textFieldUsername(hintText, errorText, obscure, controller, {keyboard}) {
+Widget textFieldUsername(hintText, errorText, obscure, controller,
+    {keyboard, fillwhiteColor, onTap, maxLength}) {
   return Container(
     height: 52,
     decoration: BoxDecoration(
-      color: (errorText == true) ? HexColor('#FCF3F2') : HexColor("#F5F5F5"),
+      color: fillwhiteColor == true
+          ? HexColor("#FFFFFF")
+          : (errorText == true)
+              ? HexColor('#FCF3F2')
+              : HexColor("#F5F5F5"),
       borderRadius: const BorderRadius.all(
         Radius.circular(10),
       ),
     ),
     child: TextField(
+      maxLength: maxLength,
+
       controller: controller,
       autocorrect: true,
       //autofocus: true,
@@ -25,6 +34,7 @@ Widget textFieldUsername(hintText, errorText, obscure, controller, {keyboard}) {
           fontWeight: FontWeight.w400),
       keyboardType: keyboard ?? TextInputType.name,
       decoration: InputDecoration(
+        counter: SizedBox(),
         // fillColor: HexColor("#FAF8F7"),
         border: const OutlineInputBorder(
           borderSide: BorderSide.none,
@@ -41,8 +51,10 @@ Widget textFieldUsername(hintText, errorText, obscure, controller, {keyboard}) {
         enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide.none,
         ),
+
         focusedBorder: const OutlineInputBorder(borderSide: BorderSide.none),
       ),
+      onTap: onTap,
     ),
   );
 }

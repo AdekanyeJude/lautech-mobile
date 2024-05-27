@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:lautech_mobile/screens/home/course/chooselevel_screen.dart';
 import 'package:lautech_mobile/utils/texts/poppins_text.dart';
 
 Widget courseContainer(courseImage, professorprofileImg, professorName,
     courseCodeAndTitle, context) {
   return InkWell(
     onTap: () {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => ChooseLevelScreen()));
+      // Navigator.push(context,
+      //     MaterialPageRoute(builder: (context) => ChooseLevelScreen()));
     },
     child: Container(
       height: 260,
