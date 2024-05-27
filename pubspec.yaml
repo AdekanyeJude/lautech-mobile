@@ -30,7 +30,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  hexcolor:   
+  hexcolor:  
+  pin_code_text_field:
+  pin_code_fields: 
+  flutter_countdown_timer: ^4.1.0
+  intl: ^0.19.0
 
 
   # The following adds the Cupertino Icons font to your application.

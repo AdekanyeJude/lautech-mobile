@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'LODLC',
+      title: 'Lautech Manual',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: HexColor("#905F32")),
         useMaterial3: true,

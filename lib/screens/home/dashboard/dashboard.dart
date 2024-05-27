@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:lautech_mobile/screens/bottomNav/bottomnav_bar.dart';
+import 'package:lautech_mobile/screens/home/course/chooselevel_screen.dart';
 import 'package:lautech_mobile/screens/home/dashboard/course_container.dart';
 import 'package:lautech_mobile/screens/home/dashboard/searchtextfield_row.dart';
 import 'package:lautech_mobile/utils/texts/poppins_text.dart';
@@ -99,6 +100,12 @@ class _DashBoardState extends State<DashBoard> {
                           fontWeight: FontWeight.w500,
                         ),
                         InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ChooseLevelScreen()));
+                          },
                           child: poppinsText(
                             'See all',
                             14.0,
@@ -118,12 +125,14 @@ class _DashBoardState extends State<DashBoard> {
                             'assets/imgs/course-image.png',
                             'assets/imgs/icon.png',
                             'Professor Bello',
-                            'CHM 101: Introduction to Chemistry',context),
+                            'CHM 101: Introduction to Chemistry',
+                            context),
                         courseContainer(
                             'assets/imgs/course-image.png',
                             'assets/imgs/icon.png',
                             'Professor Bello',
-                            'CHM 101: Introduction to Chemistry',context)
+                            'CHM 101: Introduction to Chemistry',
+                            context)
                       ],
                     )
                   ],
@@ -131,7 +140,7 @@ class _DashBoardState extends State<DashBoard> {
               ],
             ),
           )),
-          bottomNavigationBar: BottomNavBar(),
+      bottomNavigationBar: BottomNavBar(),
     );
   }
 }

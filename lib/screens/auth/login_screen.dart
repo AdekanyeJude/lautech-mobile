@@ -28,6 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Container(
           decoration: const BoxDecoration(
               image: DecorationImage(
+            fit: BoxFit.fill,
             image: AssetImage('assets/imgs/background-image.png'),
           )),
           child: Padding(
@@ -78,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       alignment: Alignment.centerRight,
                       child: forgotPasswordButton(
                         'Forgot Password',
-                        () {},
+                        context,
                       ),
                     ),
                     const SizedBox(

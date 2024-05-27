@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:lautech_mobile/utils/texts/poppins_text.dart';
 
-Widget backNavRow(context, text) {
+Widget backNavRow(context, text, {textSize, trailingWidget}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
@@ -18,13 +18,14 @@ Widget backNavRow(context, text) {
       ),
       poppinsText(
         text,
-        16.0,
+        textSize ?? 16.0,
         HexColor("#1A284B"),
         fontWeight: FontWeight.w600,
       ),
-      SizedBox(
-        width: 13,
-      ),
+      trailingWidget ??
+          SizedBox(
+            width: 13,
+          ),
     ],
   );
 }
