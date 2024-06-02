@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:lautech_mobile/colors/colors.dart';
 import 'package:lautech_mobile/main.dart';
+import 'package:lautech_mobile/screens/home/assignment/assignment_screen.dart';
 import 'package:lautech_mobile/screens/home/dashboard/dashboard.dart';
+import 'package:lautech_mobile/screens/home/manuals/my_manual_screen.dart';
+import 'package:lautech_mobile/screens/home/profile/myprofile_screen.dart';
+import 'package:lautech_mobile/screens/home/quiz/quizzes_screen.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -34,22 +38,43 @@ class _BottomNavBarState extends State<BottomNavBar> {
                 btmNavImg(
                   DashBoard(),
                   1,
-                  'assets/imgs/icon/home (2).png',
+                  'assets/imgs/icon/home.png',
                 ),
                 btmNavImg(
-                  DashBoard(),
+                  MyManualsScreen(),
                   2,
-                  'assets/imgs/icon/diamond.png',
+                  'assets/imgs/icon/manuals.png',
+                ),
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      currentIndex = 3;
+                    });
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => QuizScreen()));
+                  },
+                  child: Container(
+                      height: 45,
+                      width: 45,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle, color: HexColor("#905F32")),
+                      child: Image.asset(
+                        'assets/imgs/icon/assignment-icn.png',
+                        height: 3,
+                        width: 30,
+                        scale: 4,
+                        // color:  HexColor("#060505"),
+                      )),
                 ),
                 btmNavImg(
-                  DashBoard(),
-                  3,
-                  'assets/imgs/icon/tag.png',
-                ),
-                btmNavImg(
-                  DashBoard(),
+                  AssignmentsScreen(),
                   4,
-                  'assets/imgs/icon/profile.png',
+                  'assets/imgs/icon/assignments.png',
+                ),
+                btmNavImg(
+                  MyProfileScreen(),
+                  5,
+                  'assets/imgs/profile.png',
                 ),
               ]),
         ),
@@ -72,8 +97,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
             height: height ?? 24,
             width: width ?? 24,
             color: currentIndex == indexId
-                ? HexColor("#EE0A0A")
-                : HexColor("#1A284B"),
+                ? HexColor("#905F32")
+                : HexColor("#060505"),
           )
           //  Image.asset(
           //   "]",
