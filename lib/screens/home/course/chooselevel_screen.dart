@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lautech_mobile/colors/colors.dart';
 import 'package:lautech_mobile/screens/home/course/level_container.dart';
-import 'package:lautech_mobile/screens/home/course/semester_screen.dart';
+import 'package:lautech_mobile/screens/home/manuals/semester_screen.dart';
 import 'package:lautech_mobile/utils/backnav_row.dart';
 
 class ChooseLevelScreen extends StatefulWidget {
@@ -32,64 +32,64 @@ class _ChooseLevelScreenState extends State<ChooseLevelScreen> {
                     context,
                     'Choose your Level',
                   ),
-                  SizedBox(
-                    height: 34,
-                  ),
-                  levelContainer(
-                    'Level 1 (One)',
-                    () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SemesterCourseScreen(
-                                  semester: 'Rain Semester',
-                                  level: 'Level 1 (One)',
-                                )),
-                      );
-                    },
-                    () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SemesterCourseScreen(
-                                  semester: 'Harmattan Semester',
-                                  level: 'Level 1 (One)',
-                                )),
-                      );
-                    },
-                  ),
-                  SizedBox(
-                    height: 45,
-                  ),
-                  levelContainer(
-                    'Level 2(Two)',
-                    () {},
-                    () {},
-                  ),
-                  SizedBox(
-                    height: 45,
-                  ),
-                  levelContainer(
-                    'Level 3 (Three)',
-                    () {},
-                    () {},
-                  ),
-                  SizedBox(
-                    height: 45,
-                  ),
-                  levelContainer(
-                    'Level 4 (Four)',
-                    () {},
-                    () {},
-                  ),
-                  SizedBox(
-                    height: 45,
-                  ),
-                  levelContainer(
-                    'Level 5 (Five)',
-                    () {},
-                    () {},
-                  ),
+                  // SizedBox(
+                  //   height: 34,
+                  // ),
+                  // levelContainer(
+                  //   'Level 1 (One)',
+                  //   () {
+                  //     Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //           builder: (context) => SemesterCourseScreen(
+                  //                 semester: 'Rain Semester',
+                  //                 level: 'Level 1 (One)',
+                  //               )),
+                  //     );
+                  //   },
+                  //   () {
+                  //     Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //           builder: (context) => SemesterCourseScreen(
+                  //                 semester: 'Harmattan Semester',
+                  //                 level: 'Level 1 (One)',
+                  //               )),
+                  //     );
+                  //   },
+                  // ),
+                  // SizedBox(
+                  //   height: 45,
+                  // ),
+                  // levelContainer(
+                  //   'Level 2(Two)',
+                  //   () {},
+                  //   () {},
+                  // ),
+                  // SizedBox(
+                  //   height: 45,
+                  // ),
+                  // levelContainer(
+                  //   'Level 3 (Three)',
+                  //   () {},
+                  //   () {},
+                  // ),
+                  // SizedBox(
+                  //   height: 45,
+                  // ),
+                  // levelContainer(
+                  //   'Level 4 (Four)',
+                  //   () {},
+                  //   () {},
+                  // ),
+                  // SizedBox(
+                  //   height: 45,
+                  // ),
+                  // levelContainer(
+                  //   'Level 5 (Five)',
+                  //   () {},
+                  //   () {},
+                  // ),
                 ],
               )
             ],

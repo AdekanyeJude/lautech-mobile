@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:lautech_mobile/colors/colors.dart';
-import 'package:lautech_mobile/screens/home/course/course_overview_screen.dart';
+import 'package:lautech_mobile/screens/home/manuals/view_manual_screen.dart';
 import 'package:lautech_mobile/screens/home/dashboard/dashboard.dart';
 import 'package:lautech_mobile/utils/button/auth_btn.dart';
 import 'package:lautech_mobile/utils/texts/opensans_text.dart';

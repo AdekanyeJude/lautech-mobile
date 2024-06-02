@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:lautech_mobile/colors/colors.dart';
+import 'package:lautech_mobile/main.dart';
 import 'package:lautech_mobile/screens/auth/signup_screen.dart';
 import 'package:lautech_mobile/screens/home/dashboard/dashboard.dart';
 import 'package:lautech_mobile/utils/button/auth_btn.dart';
@@ -26,11 +27,11 @@ class _LoginScreenState extends State<LoginScreen> {
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: Container(
-          decoration: const BoxDecoration(
-              image: DecorationImage(
-            fit: BoxFit.fill,
-            image: AssetImage('assets/imgs/background-image.png'),
-          )),
+          // decoration: const BoxDecoration(
+          //     image: DecorationImage(
+          //   fit: BoxFit.fill,
+          //   image: AssetImage('assets/imgs/background-image.png'),
+          // )),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 30),
             child: ListView(
@@ -88,6 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     authButton('LOGIN', () {
                       if (matricNumberController.text.isNotEmpty &&
                           passwrdController.text.isNotEmpty) {
+                        currentIndex = 1;
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(

@@ -9,6 +9,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.11.0"
+  auto_size_text:
+    dependency: transitive
+    description:
+      name: auto_size_text
+      sha256: "3f5261cd3fb5f2a9ab4e2fc3fba84fd9fcaac8821f20a1d4e71f557521b22599"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -49,6 +57,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.8"
+  dotted_border:
+    dependency: "direct main"
+    description:
+      name: dotted_border
+      sha256: "108837e11848ca776c53b30bc870086f84b62ed6e01c503ed976e8f8c7df9c04"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
   fake_async:
     dependency: transitive
     description:
@@ -83,11 +99,27 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_timer_countdown:
+    dependency: "direct main"
+    description:
+      name: flutter_timer_countdown
+      sha256: "0c73e1593ad7949c007752199a17e7ed50bb581568743dbc32f061f49873219e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.7"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_windowmanager:
+    dependency: "direct main"
+    description:
+      name: flutter_windowmanager
+      sha256: b4d0bc06f6777952b729c0cdb7ce9ad1ecabd8b8b1cb0acb57a36621457dab1b
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.0"
   hexcolor:
     dependency: "direct main"
     description:
@@ -160,6 +192,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.11.0"
+  number_paginator:
+    dependency: "direct main"
+    description:
+      name: number_paginator
+      sha256: "342992c0d87b1f0d7434e37b25b514effb075c89db3539ac6ec498f9d4d5f61e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.1"
   path:
     dependency: transitive
     description:
@@ -168,6 +208,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.9.0"
+  path_drawing:
+    dependency: transitive
+    description:
+      name: path_drawing
+      sha256: bbb1934c0cbb03091af082a6389ca2080345291ef07a5fa6d6e078ba8682f977
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
+  path_parsing:
+    dependency: transitive
+    description:
+      name: path_parsing
+      sha256: e3e67b1629e6f7e8100b367d3db6ba6af4b1f0bb80f64db18ef1fbabd2fa9ccf
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   pin_code_fields:
     dependency: "direct main"
     description:
@@ -184,6 +240,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.0"
+  plugin_platform_interface:
+    dependency: transitive
+    description:
+      name: plugin_platform_interface
+      sha256: "4820fbfdb9478b1ebae27888254d445073732dae3d6ea81f0b7e06d5dedc3f02"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.8"
+  screen_retriever:
+    dependency: transitive
+    description:
+      name: screen_retriever
+      sha256: "6ee02c8a1158e6dae7ca430da79436e3b1c9563c8cf02f524af997c201ac2b90"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.9"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -253,6 +325,46 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "13.0.0"
+  webview_flutter:
+    dependency: "direct main"
+    description:
+      name: webview_flutter
+      sha256: "6869c8786d179f929144b4a1f86e09ac0eddfe475984951ea6c634774c16b522"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.8.0"
+  webview_flutter_android:
+    dependency: transitive
+    description:
+      name: webview_flutter_android
+      sha256: "0d21cfc3bfdd2e30ab2ebeced66512b91134b39e72e97b43db2d47dda1c4e53a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.16.3"
+  webview_flutter_platform_interface:
+    dependency: transitive
+    description:
+      name: webview_flutter_platform_interface
+      sha256: d937581d6e558908d7ae3dc1989c4f87b786891ab47bb9df7de548a151779d8d
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.10.0"
+  webview_flutter_wkwebview:
+    dependency: transitive
+    description:
+      name: webview_flutter_wkwebview
+      sha256: "7affdf9d680c015b11587181171d3cad8093e449db1f7d9f0f08f4f33d24f9a0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.13.1"
+  window_manager:
+    dependency: "direct main"
+    description:
+      name: window_manager
+      sha256: "8699323b30da4cdbe2aa2e7c9de567a6abd8a97d9a5c850a3c86dcd0b34bbfbf"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.9"
 sdks:
   dart: ">=3.3.0 <4.0.0"
-  flutter: ">=2.0.1"
+  flutter: ">=3.16.6"
