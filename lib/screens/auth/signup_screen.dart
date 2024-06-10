@@ -1,12 +1,15 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:lautech_mobile/api/controller/registerApi.dart';
+import 'package:lautech_mobile/api/utils/loading.dart';
 import 'package:lautech_mobile/colors/colors.dart';
 import 'package:lautech_mobile/screens/auth/login_screen.dart';
 import 'package:lautech_mobile/screens/home/dashboard/dashboard.dart';
 import 'package:lautech_mobile/utils/button/auth_btn.dart';
 import 'package:lautech_mobile/utils/textfield/name_textfield.dart';
 import 'package:lautech_mobile/utils/texts/poppins_text.dart';
+import 'package:provider/provider.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -16,17 +19,21 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  TextEditingController fullnameController = TextEditingController();
+  TextEditingController firstnameController = TextEditingController();
+  TextEditingController middlenameController = TextEditingController();
+  TextEditingController lastnameController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
   TextEditingController matricController = TextEditingController();
   TextEditingController phonenumController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController departmentController = TextEditingController();
+  TextEditingController level = TextEditingController();
   String emailValidationtext = '';
 
   bool validateEmailBool(String email) {
     // Regular expression pattern for email validation
-    final pattern = r'^[\w-]+(\.[\w-]+)*@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,7}$';
+    const pattern = r'^[\w-]+(\.[\w-]+)*@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,7}$';
     final regex = RegExp(pattern);
     return regex.hasMatch(email);
   }
@@ -63,6 +70,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final registerProvider = Provider.of<RegisterApi>(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: colorCodes.white,
@@ -97,7 +105,12 @@ class _SignupScreenState extends State<SignupScreen> {
                       height: 21,
                     ),
                     textFieldUsername(
-                        'Full Name', '', false, fullnameController),
+                        'First Name', '', false, firstnameController),
+                    const SizedBox(
+                      height: 21,
+                    ),
+                    textFieldUsername(
+                        'Last Name', '', false, lastnameController),
                     const SizedBox(
                       height: 21,
                     ),
@@ -117,6 +130,15 @@ class _SignupScreenState extends State<SignupScreen> {
                       height: 21,
                     ),
                     textFieldUsername(
+                        'Department', '', false, departmentController),
+                    const SizedBox(
+                      height: 21,
+                    ),
+                    textFieldUsername('Level', '', false, level),
+                    const SizedBox(
+                      height: 21,
+                    ),
+                    textFieldUsername(
                       'Phone Number',
                       '',
                       false,
@@ -126,26 +148,53 @@ class _SignupScreenState extends State<SignupScreen> {
                     const SizedBox(
                       height: 21,
                     ),
-                    textFieldUsername(
-                        'Password', '', false, passwordController),
+                    textFieldUsername('Password', '', true, passwordController),
                     const SizedBox(
                       height: 21,
                     ),
-                    textFieldUsername('Confirm Password', '', false,
+                    textFieldUsername('Confirm Password', '', true,
                         confirmPasswordController),
                     const SizedBox(
                       height: 30,
                     ),
                     authButton('SIGN UP', () {
-                      if (fullnameController.text.isNotEmpty &&
+                      if (firstnameController.text.isNotEmpty &&
+                          lastnameController.text.isNotEmpty &&
                           confirmPasswordController.text.isNotEmpty &&
                           matricController.text.isNotEmpty &&
                           phonenumController.text.isNotEmpty &&
                           emailController.text.isNotEmpty &&
                           passwordController.text.isNotEmpty) {
-                        showDialog(
-                            context: context,
-                            builder: (context) => signupSuccessDialog());
+                        //api integration
+                        print("here");
+
+                        registerProvider
+                            .registerApi(
+                                firstnameController.text,
+                                lastnameController.text,
+                                emailController.text,
+                                confirmPasswordController.text,
+                                departmentController.text,
+                                level.text,
+                                phonenumController.text,
+                                matricController.text,
+                                context)
+                            .then(
+                          (_) {
+                            // Handle the login result
+                            if (registerProvider.registrationSuccess) {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) => signupSuccessDialog());
+                            } else {
+                              // Login failed
+                              setState(() {
+                                emailValidationtext = registerProvider.message;
+                              });
+                              // showToast(verifyEmailApi.message, colorCodes.paleRed, context);
+                            }
+                          },
+                        );
                       }
                     }),
                     const SizedBox(
