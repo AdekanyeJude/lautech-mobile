@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:lautech_mobile/api/controller/registerApi.dart';
 import 'package:lautech_mobile/screens/splash_screen.dart';

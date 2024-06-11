@@ -36,7 +36,7 @@ class RegisterApi extends ChangeNotifier {
         final data = json.decode(response.body);
         print("here2");
         if (response.statusCode == 200) {
-          print("here3");
+          print("Success");
           final registerApiResponse = UserDataRegisterModel.fromJson(data);
           final SharedPreferences prefs = await SharedPreferences.getInstance();
           _registrationSuccess = registerApiResponse.success;

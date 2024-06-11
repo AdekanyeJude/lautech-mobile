@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:lautech_mobile/colors/colors.dart';
 import 'package:lautech_mobile/screens/auth/login_screen.dart';
+import 'package:lautech_mobile/screens/auth/signup_screen.dart';
 import 'package:lautech_mobile/utils/backnav_row.dart';
 import 'package:lautech_mobile/utils/button/auth_btn.dart';
 import 'package:lautech_mobile/utils/textfield/name_textfield.dart';
@@ -37,42 +37,50 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                     textSize: 23.0,
                   ),
                   SizedBox(
-                    height: 330,
+                    height: 30,
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      textFieldUsername(
-                        'Password',
-                        '',
-                        true,
-                        passwrdController,
-                        fillwhiteColor: true,
-                      ),
-                      SizedBox(
-                        height: 22,
-                      ),
-                      textFieldUsername(
-                        'Comfirm Password',
-                        '',
-                        true,
-                        confirmpasswrdController,
-                        fillwhiteColor: true,
-                      ),
-                      SizedBox(
-                        height: 72,
-                      ),
-                      authButton('Continue', () {
-                        if (passwrdController.text.isNotEmpty &&
-                            confirmpasswrdController.text.isNotEmpty) {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => LoginScreen()));
-                        }
-                      })
-                    ],
-                  )
+                  Image.asset(
+                    height: 141,
+                    width: 162,
+                    'assets/imgs/forgot-password-img.png',
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  textFieldUsername(
+                    'Password',
+                    '',
+                    true,
+                    passwrdController,
+                    fillwhiteColor: true,
+                  ),
+                  SizedBox(
+                    height: 22,
+                  ),
+                  textFieldUsername(
+                    'Comfirm Password',
+                    '',
+                    true,
+                    confirmpasswrdController,
+                    fillwhiteColor: true,
+                  ),
+                  SizedBox(
+                    height: 72,
+                  ),
+                  authButton('Continue', () {
+                    if (passwrdController.text.isNotEmpty &&
+                        confirmpasswrdController.text.isNotEmpty) {
+                      showDialog(
+                          context: context,
+                          builder: (context) => signupSuccessDialog(
+                                  'Password Reset Successfully ', () {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => LoginScreen()));
+                              }));
+                    }
+                  })
                 ],
               ),
             ],

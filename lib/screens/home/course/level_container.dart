@@ -4,7 +4,7 @@ import 'package:lautech_mobile/colors/colors.dart';
 import 'package:lautech_mobile/utils/texts/opensans_text.dart';
 import 'package:lautech_mobile/utils/texts/sourcesans_text.dart';
 
-Widget levelContainer(leveltext, rainFunc, harmattanFunc) {
+Widget levelContainer(leveltext, levelManualFunc) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -20,31 +20,17 @@ Widget levelContainer(leveltext, rainFunc, harmattanFunc) {
       SizedBox(
         height: 7,
       ),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              height: 18,
-              child: InkWell(
-                onTap: rainFunc,
-                child:
-                    sourceSansText('Rain Semester', 16.0, HexColor("#091031")),
-              ),
-            ),
-            opensansText(
-                '.......................................................',
-                18.0,
-                HexColor("#B39981").withOpacity(0.7)),
-            InkWell(
-              onTap: harmattanFunc,
-              child: sourceSansText(
-                  'Harmattan Semester', 16.0, HexColor("#091031")),
-            )
-          ],
+      Container(
+        height: 18,
+        child: InkWell(
+          onTap: levelManualFunc,
+          child: sourceSansText('Click to see available manuals here ', 16.0,
+              HexColor("#091031")),
         ),
-      )
+      ),
+      SizedBox(
+        height: 15,
+      ),
     ],
   );
 }
