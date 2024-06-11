@@ -45,6 +45,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
                   2,
                   'assets/imgs/icon/manuals.png',
                 ),
+                const SizedBox(
+                  width: 18,
+                ),
                 InkWell(
                   onTap: () {
                     setState(() {
@@ -65,6 +68,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
                         scale: 4,
                         // color:  HexColor("#060505"),
                       )),
+                ),
+                const SizedBox(
+                  width: 18,
                 ),
                 btmNavImg(
                   AssignmentsScreen(),

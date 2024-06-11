@@ -1,16 +1,18 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:lautech_mobile/api/controller/registerApi.dart';
-import 'package:lautech_mobile/api/utils/loading.dart';
 import 'package:lautech_mobile/colors/colors.dart';
 import 'package:lautech_mobile/screens/auth/login_screen.dart';
+import 'package:lautech_mobile/screens/auth/verifyOTP.dart';
 import 'package:lautech_mobile/screens/home/dashboard/dashboard.dart';
 import 'package:lautech_mobile/utils/button/auth_btn.dart';
 import 'package:lautech_mobile/utils/textfield/name_textfield.dart';
 import 'package:lautech_mobile/utils/texts/poppins_text.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:provider/provider.dart';
+import 'package:toastification/toastification.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -18,6 +20,8 @@ class SignupScreen extends StatefulWidget {
   @override
   State<SignupScreen> createState() => _SignupScreenState();
 }
+
+var email, password;
 
 class _SignupScreenState extends State<SignupScreen> {
   TextEditingController firstnameController = TextEditingController();
@@ -69,6 +73,13 @@ class _SignupScreenState extends State<SignupScreen> {
     emailController.addListener(validateEmail);
   }
 
+  // @override
+  // void dispose() {
+  //   emailController.dispose();
+  //   passwordController.dispose();
+  //   super.dispose();
+  // }
+
   @override
   Widget build(BuildContext context) {
     final registerProvider = Provider.of<RegisterApi>(context);
@@ -77,178 +88,225 @@ class _SignupScreenState extends State<SignupScreen> {
       backgroundColor: colorCodes.white,
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
-        child: LoaderOverlay(
-          useDefaultLoading: false,
-          overlayWidgetBuilder: (_) {
-            //ignored progress for the moment
-            return const Center(
-              child: CircularProgressIndicator(
-                color: Colors.red,
-              ),
-            );
-          },
-          child: Container(
-            // decoration: const BoxDecoration(
-            //     image: DecorationImage(
-            //   image: AssetImage('assets/imgs/background-image.png'),
-            // )),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 30),
-              child: ListView(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-                children: [
-                  Column(
-                    children: [
-                      const SizedBox(
-                        height: 20,
+        child: Container(
+          // decoration: const BoxDecoration(
+          //     image: DecorationImage(
+          //   image: AssetImage('assets/imgs/background-image.png'),
+          // )),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 30),
+            child: ListView(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+              children: [
+                Column(
+                  children: [
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Image.asset(
+                      'assets/imgs/Logo.png',
+                      height: 72,
+                      width: 77,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    poppinsText('Create Account', 14.0, HexColor("#1A284B"),
+                        fontWeight: FontWeight.w600),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    RichText(
+                      text: TextSpan(
+                        style: TextStyle(
+                            fontFamily: 'Open Sans',
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: HexColor("#707070")),
+                        children: [
+                          TextSpan(text: 'Already have an account? '),
+                          TextSpan(
+                              text: 'Login here',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  color: HexColor("#EB5757")),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => LoginScreen()));
+                                }),
+                        ],
                       ),
-                      Image.asset(
-                        'assets/imgs/Logo.png',
-                        height: 72,
-                        width: 77,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      poppinsText('Create Account', 14.0, HexColor("#1A284B"),
-                          fontWeight: FontWeight.w600),
-                      const SizedBox(
-                        height: 21,
-                      ),
-                      textFieldUsername(
-                          'First Name', '', false, firstnameController),
-                      const SizedBox(
-                        height: 21,
-                      ),
-                      textFieldUsername(
-                          'Last Name', '', false, lastnameController),
-                      const SizedBox(
-                        height: 21,
-                      ),
-                      textFieldUsername(
-                        'Email Address',
-                        '',
-                        false,
-                        emailController,
-                        keyboard: TextInputType.emailAddress,
-                      ),
-                      const SizedBox(
-                        height: 21,
-                      ),
-                      textFieldUsername(
-                          'Matric Number', '', false, matricController),
-                      const SizedBox(
-                        height: 21,
-                      ),
-                      textFieldUsername(
-                          'Department', '', false, departmentController),
-                      const SizedBox(
-                        height: 21,
-                      ),
-                      textFieldUsername('Level', '', false, level),
-                      const SizedBox(
-                        height: 21,
-                      ),
-                      textFieldUsername(
-                        'Phone Number',
-                        '',
-                        false,
-                        phonenumController,
-                        keyboard: TextInputType.number,
-                      ),
-                      const SizedBox(
-                        height: 21,
-                      ),
-                      textFieldUsername(
-                          'Password', '', true, passwordController),
-                      const SizedBox(
-                        height: 21,
-                      ),
-                      textFieldUsername('Confirm Password', '', true,
-                          confirmPasswordController),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      authButton('SIGN UP', () {
-                        if (firstnameController.text.isNotEmpty &&
-                            lastnameController.text.isNotEmpty &&
-                            confirmPasswordController.text.isNotEmpty &&
-                            matricController.text.isNotEmpty &&
-                            phonenumController.text.isNotEmpty &&
-                            emailController.text.isNotEmpty &&
-                            passwordController.text.isNotEmpty) {
-                          //api integration
-                          print("here");
+                    ),
+                    const SizedBox(
+                      height: 21,
+                    ),
+                    textFieldUsername(
+                        'First Name', '', false, firstnameController),
+                    const SizedBox(
+                      height: 21,
+                    ),
+                    textFieldUsername(
+                        'Last Name', '', false, lastnameController),
+                    const SizedBox(
+                      height: 21,
+                    ),
+                    textFieldUsername(
+                      'Email Address',
+                      '',
+                      false,
+                      emailController,
+                      keyboard: TextInputType.emailAddress,
+                    ),
+                    const SizedBox(
+                      height: 21,
+                    ),
+                    textFieldUsername(
+                        'Matric Number', '', false, matricController),
+                    const SizedBox(
+                      height: 21,
+                    ),
+                    textFieldUsername(
+                        'Department', '', false, departmentController),
+                    const SizedBox(
+                      height: 21,
+                    ),
+                    textFieldLevel(
+                      'Select Level', // Hint text
+                      '', // Error text
+                      false, // Obscure (for password fields)
+                      level, // Your TextEditingController
+                    ),
+                    const SizedBox(
+                      height: 21,
+                    ),
+                    textFieldUsername(
+                      'Phone Number',
+                      '',
+                      false,
+                      phonenumController,
+                      keyboard: TextInputType.number,
+                    ),
+                    const SizedBox(
+                      height: 21,
+                    ),
+                    textFieldUsername('Password', '', true, passwordController),
+                    const SizedBox(
+                      height: 21,
+                    ),
+                    textFieldUsername('Confirm Password', '', true,
+                        confirmPasswordController),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    authButton('SIGN UP', () async {
+                      if (firstnameController.text.isNotEmpty &&
+                          lastnameController.text.isNotEmpty &&
+                          confirmPasswordController.text.isNotEmpty &&
+                          matricController.text.isNotEmpty &&
+                          phonenumController.text.isNotEmpty &&
+                          emailController.text.isNotEmpty &&
+                          passwordController.text.isNotEmpty) {
+                        //api integration
+                        print("here");
+                        Loader.show(context,
+                            isSafeAreaOverlay: true,
+                            isBottomBarOverlay: true,
+                            overlayFromBottom: 80,
+                            overlayColor: Colors.black26,
+                            progressIndicator: CircularProgressIndicator(
+                                backgroundColor:
+                                    Color.fromARGB(255, 253, 155, 8)),
+                            themeData: Theme.of(context).copyWith(
+                                colorScheme: ColorScheme.fromSwatch()
+                                    .copyWith(secondary: Colors.green)));
 
-                          registerProvider
-                              .registerApi(
-                                  firstnameController.text,
-                                  lastnameController.text,
-                                  emailController.text,
-                                  confirmPasswordController.text,
-                                  departmentController.text,
-                                  level.text,
-                                  phonenumController.text,
-                                  matricController.text,
-                                  context)
-                              .then(
-                            (_) {
-                              // Handle the login result
-                              if (registerProvider.registrationSuccess) {
-                                showDialog(
-                                    context: context,
-                                    builder: (context) => signupSuccessDialog(
-                                        registerProvider.message,
-                                        Navigator.pushReplacement(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    DashBoard()))));
-                              } else {
-                                // Login failed
-                                setState(() {
-                                  emailValidationtext =
-                                      registerProvider.message;
-                                });
-                                // showToast(verifyEmailApi.message, colorCodes.paleRed, context);
-                              }
-                            },
-                          );
-                        }
-                      }),
-                      const SizedBox(
-                        height: 13,
+                        await registerProvider
+                            .registerApi(
+                                firstnameController.text,
+                                lastnameController.text,
+                                emailController.text,
+                                confirmPasswordController.text,
+                                departmentController.text,
+                                level.text,
+                                phonenumController.text,
+                                matricController.text,
+                                context)
+                            .then(
+                          (_) {
+                            Loader.hide();
+                            // Handle the login result
+                            if (registerProvider.registrationSuccess) {
+                              setState(() {
+                                email = emailController.text;
+                                password = passwordController.text;
+                              });
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          VerifyOtpRegisterScreen()));
+                            } else {
+                              // Registration failed
+                              setState(() {
+                                emailValidationtext = registerProvider.message;
+                              });
+                              toastification.show(
+                                context:
+                                    context, // optional if you use ToastificationWrapper
+                                title: Text(emailValidationtext),
+                                autoCloseDuration: const Duration(seconds: 5),
+                                backgroundColor: Colors.red,
+                                primaryColor: Colors.white,
+                                foregroundColor: Colors.white,
+                              );
+                            }
+                          },
+                        );
+                      } else {
+                        toastification.show(
+                          context:
+                              context, // optional if you use ToastificationWrapper
+                          title: Text('Fill all required fields'),
+                          autoCloseDuration: const Duration(seconds: 5),
+                          backgroundColor: Colors.red,
+                          primaryColor: Colors.white,
+                          foregroundColor: Colors.white,
+                        );
+                      }
+                    }),
+                    const SizedBox(
+                      height: 13,
+                    ),
+                    RichText(
+                      text: TextSpan(
+                        style: TextStyle(
+                            fontFamily: 'Open Sans',
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            color: HexColor("#707070")),
+                        children: [
+                          TextSpan(text: 'Already have an account? '),
+                          TextSpan(
+                              text: 'Login',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  color: HexColor("#EB5757")),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => LoginScreen()));
+                                }),
+                        ],
                       ),
-                      RichText(
-                        text: TextSpan(
-                          style: TextStyle(
-                              fontFamily: 'Open Sans',
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              color: HexColor("#707070")),
-                          children: [
-                            TextSpan(text: 'Already have an account? '),
-                            TextSpan(
-                                text: 'Login',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    color: HexColor("#EB5757")),
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () {
-                                    Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                LoginScreen()));
-                                  }),
-                          ],
-                        ),
-                      )
-                    ],
-                  )
-                ],
-              ),
+                    )
+                  ],
+                )
+              ],
             ),
           ),
         ),

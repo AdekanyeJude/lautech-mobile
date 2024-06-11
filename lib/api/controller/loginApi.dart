@@ -5,45 +5,44 @@ import 'package:lautech_mobile/api/utils/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:lautech_mobile/api/model/userModel.dart';
 
-var userDataRegisterModelVar;
+var userDataLoginModelVar;
 
-class RegisterApi extends ChangeNotifier {
-  bool _registrationSuccess = false;
-  bool get registrationSuccess => _registrationSuccess;
+class LoginApi extends ChangeNotifier {
+  bool _loginSuccess = false;
+  bool get loginSuccess => _loginSuccess;
 
   String _message = '';
   String get message => _message;
 
-  registerApi(firstName, lastName, email, String passwordData, department,
-      level, phoneNumber, matric, BuildContext context) async {
+  loginApi(String email, String passwordData, BuildContext context) async {
     try {
       var result = await InternetAddress.lookup('google.com');
 
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         var body = {
-          "firstName": firstName,
-          "lastName": lastName,
-          "level": int.parse(level),
-          "matricNumber": matric,
-          "department": department,
-          "password": passwordData,
           "email": email,
-          "phoneNumber": int.parse(phoneNumber)
+          "password": passwordData,
         };
         print(body);
 
         final response =
-            await HttpService.registerPostRequest('/student/register', body);
+            await HttpService.loginPostRequest('/student/login', body);
         print("here1");
         final data = json.decode(response.body);
         print("here2");
         if (response.statusCode == 200) {
           print("Success");
-          userDataRegisterModelVar = UserDataRegisterModel.fromJson(data);
+          userDataLoginModelVar = UserDataLoginModel.fromJson(data);
           final SharedPreferences prefs = await SharedPreferences.getInstance();
-          _registrationSuccess = userDataRegisterModelVar.success;
-          _message = userDataRegisterModelVar.message;
+
+          // Save user data to SharedPreferences
+          prefs.setString('userData', json.encode(data));
+
+          _loginSuccess = userDataLoginModelVar.success;
+          _message = userDataLoginModelVar.message;
         } else {
+          print("failed");
+
           _message = data['message'] ?? 'An error occurred';
           print(_message);
         }

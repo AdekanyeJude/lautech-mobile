@@ -2,17 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_windowmanager/flutter_windowmanager.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:lautech_mobile/api/controller/loginApi.dart';
 import 'package:lautech_mobile/api/controller/registerApi.dart';
+import 'package:lautech_mobile/api/utils/dataMethod.dart';
 import 'package:lautech_mobile/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:snapshot_guard/snapshot_guard.dart';
 
 void main() {
   WidgetsFlutterBinding
       .ensureInitialized(); // Ensure the binding is initialized
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
-      .then((_) {
+      .then((_) async {
+    WidgetsFlutterBinding.ensureInitialized();
+    await loadUserData();
+    await SnapshotGuard.switchGuardStatus(true);
     runApp(MultiProvider(providers: [
       ChangeNotifierProvider(create: (_) => RegisterApi()),
+      ChangeNotifierProvider(create: (_) => LoginApi()),
     ], child: const MyApp()));
   });
 }

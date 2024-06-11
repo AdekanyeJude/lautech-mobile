@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 
-var UserDataRegisterModelVar =
-    UserDataRegisterModel.fromJson(json as Map<String, dynamic>);
+// var userDataRegisterModelVar =
+//     UserDataRegisterModel.fromJson(json as Map<String, dynamic>);
+// var userDataLoginModelVar =
+//     UserDataRegisterModel.fromJson(json as Map<String, dynamic>);
 
 class UserDataRegisterModel {
   var success;
@@ -22,60 +24,132 @@ class UserDataRegisterModel {
       success: json['success'] ?? false,
       message: json['message'] ?? '',
       info: json['info'],
-      newUser: json['newUser'],
+      newUser: UserInfo.fromJson(json['newUser']),
     );
   }
 }
 
-// class Data {
-//   String? email;
-//   String? firstName;
-//   String? lastName;
-//   String? password;
-//   int? id;
-//   int? tokenNumber;
+class UserDataLoginModel {
+  var success;
+  var message;
+  Info info;
 
-//   Data({
-//     required this.email,
-//     required this.firstName,
-//     required this.lastName,
-//     required this.password,
-//     required this.id,
-//     required this.tokenNumber,
-//   });
+  UserDataLoginModel({
+    required this.success,
+    required this.message,
+    required this.info,
+  });
 
-//   factory Data.fromJson(Map<String, dynamic> json) {
-//     return Data(
-//       // profileId: json['profileId'],
-//       email: json['email'],
-//       firstName: json['firstName'],
-//       lastName: json['lastName'],
-//       password: json['password'],
-//       id: json['id'],
-//       tokenNumber: json['tokenNumber'],
-//     );
-//   }
-// }
+  factory UserDataLoginModel.fromJson(Map<String, dynamic> json) {
+    return UserDataLoginModel(
+      success: json['success'] ?? false,
+      message: json['message'] ?? '',
+      info: Info.fromJson(json['info']),
+    );
+  }
 
-// class RegisterApiResponse {
-//   final Map<String, dynamic> data;
-//   final bool isSuccessful;
-//   final String message;
+  Object? toJson() {}
+}
 
-//   RegisterApiResponse({
-//     required this.data,
-//     required this.isSuccessful,
-//     required this.message,
-//   });
+class Info {
+  var student;
+  var id;
+  var firstName;
+  var lastName;
+  var token;
+  var tokenNumber;
+  var coursesID;
+  var ID;
+  var password;
+  var email;
+  var courses;
+  var verified;
+  var createdAt;
+  var admin;
+  var v;
 
-//   factory RegisterApiResponse.fromJson(Map<String, dynamic> json) {
-//     return RegisterApiResponse(
-//       data: json['data'],
-//       isSuccessful: json['isSuccessful'],
-//       message: json['message'],
-//     );
-//   }
-// }
+  Info({
+    required this.student,
+    required this.id,
+    required this.firstName,
+    required this.lastName,
+    required this.token,
+    required this.tokenNumber,
+    required this.coursesID,
+    required this.ID,
+    required this.password,
+    required this.email,
+    required this.courses,
+    required this.verified,
+    required this.createdAt,
+    required this.admin,
+    required this.v,
+  });
+
+  factory Info.fromJson(Map<String, dynamic> json) {
+    return Info(
+      student: json['student'] ?? false,
+      id: json['_id'] ?? '',
+      firstName: json['firstName'] ?? '',
+      lastName: json['lastName'] ?? '',
+      token: json['token'] ?? '',
+      tokenNumber: json['tokenNumber'] ?? 0,
+      coursesID: json['coursesID'] ?? [],
+      ID: json['ID'] ?? 0,
+      password: json['password'] ?? '',
+      email: json['email'] ?? '',
+      courses: json['courses'] ?? [],
+      verified: json['verified'] ?? false,
+      createdAt: json['created_at'] ?? '',
+      admin: json['admin'] ?? false,
+      v: json['__v'] ?? 0,
+    );
+  }
+}
+
+class UserInfo {
+  late String email;
+  late String firstName;
+  late String lastName;
+  late String password;
+  late int level;
+  late String department;
+  late int phoneNumber;
+  late String createdAt;
+  late int ID;
+  late String token;
+  late int OTP;
+
+  UserInfo({
+    required this.email,
+    required this.firstName,
+    required this.lastName,
+    required this.password,
+    required this.level,
+    required this.department,
+    required this.phoneNumber,
+    required this.createdAt,
+    required this.ID,
+    required this.token,
+    required this.OTP,
+  });
+
+  factory UserInfo.fromJson(Map<String, dynamic> json) {
+    return UserInfo(
+      email: json['email'],
+      firstName: json['firstName'],
+      lastName: json['lastName'],
+      password: json['password'],
+      level: json['level'],
+      department: json['department'],
+      phoneNumber: json['phoneNumber'],
+      createdAt: json['created_at'],
+      ID: json['ID'],
+      token: json['token'],
+      OTP: json['OTP'],
+    );
+  }
+}
 
 // this is for when the user doesn't have a profile picture.
 var defaultDP =

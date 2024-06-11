@@ -1,6 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:lautech_mobile/api/controller/loginApi.dart';
 import 'package:lautech_mobile/colors/colors.dart';
 import 'package:lautech_mobile/main.dart';
 import 'package:lautech_mobile/screens/auth/signup_screen.dart';
@@ -9,6 +11,8 @@ import 'package:lautech_mobile/utils/button/auth_btn.dart';
 import 'package:lautech_mobile/utils/button/forgotpass_btn.dart';
 import 'package:lautech_mobile/utils/textfield/name_textfield.dart';
 import 'package:lautech_mobile/utils/texts/poppins_text.dart';
+import 'package:provider/provider.dart';
+import 'package:toastification/toastification.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -18,10 +22,20 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController matricNumberController = TextEditingController();
-  TextEditingController passwrdController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final loginProvider = Provider.of<LoginApi>(context);
+
     return Scaffold(
       backgroundColor: colorCodes.white,
       body: GestureDetector(
@@ -59,10 +73,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: 28,
                     ),
                     textFieldUsername(
-                      'Matric Number',
+                      'Email',
                       '',
                       false,
-                      matricNumberController,
+                      emailController,
                     ),
                     const SizedBox(
                       height: 26,
@@ -71,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       'Password',
                       '',
                       true,
-                      passwrdController,
+                      passwordController,
                     ),
                     const SizedBox(
                       height: 26,
@@ -87,13 +101,63 @@ class _LoginScreenState extends State<LoginScreen> {
                       height: 38,
                     ),
                     authButton('LOGIN', () {
-                      if (matricNumberController.text.isNotEmpty &&
-                          passwrdController.text.isNotEmpty) {
-                        currentIndex = 1;
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => DashBoard()));
+                      if (emailController.text.isNotEmpty &&
+                          passwordController.text.isNotEmpty) {
+                        if (emailController.text.isNotEmpty &&
+                            passwordController.text.isNotEmpty) {
+                          //api integration
+                          print("here");
+                          Loader.show(context,
+                              isSafeAreaOverlay: true,
+                              isBottomBarOverlay: true,
+                              overlayFromBottom: 80,
+                              overlayColor: Colors.black26,
+                              progressIndicator: CircularProgressIndicator(
+                                  backgroundColor:
+                                      Color.fromARGB(255, 253, 155, 8)),
+                              themeData: Theme.of(context).copyWith(
+                                  colorScheme: ColorScheme.fromSwatch()
+                                      .copyWith(secondary: Colors.green)));
+
+                          loginProvider
+                              .loginApi(emailController.text,
+                                  passwordController.text, context)
+                              .then(
+                            (_) {
+                              // Handle the login result
+                              if (loginProvider.loginSuccess) {
+                                Loader.hide();
+                                currentIndex = 1;
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => DashBoard()));
+                              } else {
+                                Loader.hide();
+                                // Login failed
+                                toastification.show(
+                                  context:
+                                      context, // optional if you use ToastificationWrapper
+                                  title: Text(loginProvider.message),
+                                  autoCloseDuration: const Duration(seconds: 5),
+                                  backgroundColor: Colors.red,
+                                  primaryColor: Colors.white,
+                                  foregroundColor: Colors.white,
+                                );
+                              }
+                            },
+                          );
+                        }
+                      } else {
+                        toastification.show(
+                          context:
+                              context, // optional if you use ToastificationWrapper
+                          title: Text('Fill all required fields'),
+                          autoCloseDuration: const Duration(seconds: 5),
+                          backgroundColor: Colors.red,
+                          primaryColor: Colors.white,
+                          foregroundColor: Colors.white,
+                        );
                       }
                     }),
                     const SizedBox(
